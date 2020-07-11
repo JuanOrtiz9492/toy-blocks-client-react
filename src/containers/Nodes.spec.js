@@ -9,7 +9,8 @@ import Node from "../components/Node";
 
 describe("<Nodes />", () => {
   const actions = {
-    checkNodeStatuses: jest.fn()
+    checkNodeStatuses: jest.fn(),
+    checkNodeBlocksList: jest.fn()
   };
 
   const nodes = {
@@ -18,13 +19,28 @@ describe("<Nodes />", () => {
         url: 'https://thawing-springs-53971.herokuapp.com',
         online: false,
         name: 'Node 1',
-        loading: false
+        loading: false,
+        blocks:[
+          {
+            "id": "1",
+            "attributes": {
+                "data": "By reason of these things",
+            }
+        },
+        {
+            "id": "2",
+            "attributes": {
+                "data": "then the whaling voyage was welcome",
+            }
+        }
+        ]
       },
       {
         url: 'https://secret-lowlands-62331.herokuapp.com',
         online: false,
         name: 'Node 2',
-        loading: false
+        loading: false,
+        blocks:[]
       }
     ]
   };

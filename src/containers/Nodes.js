@@ -16,7 +16,9 @@ export class Nodes extends React.Component {
   }
 
   componentDidMount() {
-    this.props.actions.checkNodeStatuses(this.props.nodes.list);
+    const {actions, nodes:{list}} = this.props
+    actions.checkNodeStatuses(list);
+    actions.checkNodeBlocksList(list);
   }
 
   toggleNodeExpanded(node) {

@@ -45,8 +45,17 @@ const Node = ({ node, expanded, toggleNodeExpanded }) => {
           <Status loading={node.loading} online={node.online} />
         </Box>
       </ExpansionPanelSummary>
-      <ExpansionPanelDetails>
-        <Typography>Blocks go here</Typography>
+      <ExpansionPanelDetails className={classes.flexWrapper}>
+        {node.blocks.length > 0 ? 
+        node.blocks.map(({id, attributes:{data}}) => (
+          <Box className={classes.blockStyle} key={id}>
+            <Typography className={classes.h2Style} variant="h2">{`00${id}`}</Typography>
+            <Typography className={classes.textStyle} variant="body1">{data}</Typography>
+          </Box>
+        ))
+        : <Status loading={node.loading} online={node.online} />
+        }
+        
       </ExpansionPanelDetails>
     </ExpansionPanel>
   );
@@ -96,6 +105,26 @@ const useStyles = makeStyles((theme) => ({
     color: colors.faded,
     lineHeight: 2,
   },
+  blockStyle:{
+    backgroundColor: colors.contentBackground,
+    display: 'flex',
+    flexDirection: 'column',
+    margin: '5px 0',
+    padding: '5px',
+    "& h2": {
+      color: colors.h2Color,
+    }
+  },
+  flexWrapper: {
+    flexDirection: 'column',
+  },
+  h2Style:{
+    fontSize: '0.7em',
+    marginBottom: '5px'
+  },
+  textStyle:{
+    color: colors.text,
+  }
 }));
 
 Node.propTypes = {
