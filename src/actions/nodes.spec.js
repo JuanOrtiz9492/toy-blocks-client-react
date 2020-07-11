@@ -36,5 +36,19 @@ describe('Actions', () => {
     expect(dispatch).toBeCalledWith(expected);
   });
 
+  it('test for blocks api call', ()=>{
+    const dispatch = jest.fn();
+    const expected = {
+      type: ActionTypes.CHECK_NODE_BLOCKS_START,
+      node
+    };
+
+    // we expect this to return a function since it is a thunk
+    expect(typeof (ActionCreators.checkNodeBlocks(node))).toEqual('function');
+    // then we simulate calling it with dispatch as the store would do
+    ActionCreators.checkNodeBlocks(node)(dispatch);
+    // finally assert that the dispatch was called with our expected action
+    expect(dispatch).toBeCalledWith(expected);
+  })
 
 });

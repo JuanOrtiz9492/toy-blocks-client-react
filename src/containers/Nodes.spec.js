@@ -55,7 +55,16 @@ describe("<Nodes />", () => {
 
     expect(wrapper.find(Node).length).toEqual(2);
   });
-
+  it("test api calls", ()=>{
+    shallow(
+      <Nodes
+        actions={actions}
+        nodes={nodes}
+      />
+    );
+    expect(actions.checkNodeStatuses).toHaveBeenCalledWith(nodes.list)
+    expect(actions.checkNodeBlocksList).toHaveBeenCalledWith(nodes.list)
+  })
   it("should match snapshot", () => {
     const middlewares = [thunk];
     const store = configureMockStore(middlewares)({nodes});

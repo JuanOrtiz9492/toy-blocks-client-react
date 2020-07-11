@@ -11,13 +11,15 @@ describe('Reducers::Nodes', () => {
   const nodeA = {
     url: 'http://localhost:3002',
     online: false,
-    name: null
+    name: null,
+    blocks:[]
   };
 
   const nodeB = {
     url: 'http://localhost:3003',
     online: false,
-    name: null
+    name: null,
+    blocks:[]
   };
 
   it('should set initial state by default', () => {
@@ -85,6 +87,72 @@ describe('Reducers::Nodes', () => {
           online: false,
           name: 'alpha',
           loading: false
+        },
+        nodeB
+      ]
+    };
+
+    expect(reducer(appState, action)).toEqual(expected);
+  });
+
+  it('should handle CHECK_NODE_BLOCKS_START', () => {
+    const appState = {
+      list: [nodeA, nodeB]
+    };
+    const action = { type: ActionTypes.CHECK_NODE_BLOCKS_START, node: nodeA };
+    const expected = {
+      list: [
+        {
+          ...nodeA,
+          loading: true
+        },
+        nodeB
+      ]
+    };
+
+    expect(reducer(appState, action)).toEqual(expected);
+  });
+
+  it('should handle CHECK_NODE_BLOCKS_SUCCESS', () => {
+    const appState = {
+      list: [nodeA, nodeB]
+    };
+    const action = { 
+      type: ActionTypes.CHECK_NODE_BLOCKS_SUCCESS, 
+      node: nodeA, 
+      res: {data:[
+        {
+          id: 1,
+          attributes:{
+            data:'text'
+          }
+        },
+        {
+          id: 2,
+          attributes:{
+            data:'text'
+          }
+        }
+      ]} };
+    const expected = {
+      list: [
+        {
+          ...nodeA,
+          loading: false,
+          blocks:[
+            {
+              id: 1,
+              attributes:{
+                data:'text'
+              }
+            },
+            {
+              id: 2,
+              attributes:{
+                data:'text'
+              }
+            }
+          ]
         },
         nodeB
       ]
